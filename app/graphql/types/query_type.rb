@@ -5,9 +5,23 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   # TODO: remove me
   field :testField, types.String do
+    # arguments
+    argument :name, types.String, "Enter your name here"
+
     description "An example field added by the generator"
     resolve ->(obj, args, ctx) {
-      "Hello World!"
+      Rails.logger.info obj.inspect
+      "Hello #{args[:name]}!"
+    }
+  end
+
+
+  field :author, Types::AuthorType do
+    argument :id, types.ID
+    description "One Author"
+
+    resolve ->(obj, args, ctx){
+      Author.where(id: args[:id]).first
     }
   end
 end
