@@ -1,6 +1,7 @@
 Types::AuthorType = GraphQL::ObjectType.define do
   name "AuthorType"
 
+  field :id, types.ID
   field :first_name, !types.String
   field :last_name, !types.String
   field :birth_year, types.Int
@@ -13,5 +14,13 @@ Types::AuthorType = GraphQL::ObjectType.define do
     }
   end
 
-  field :id, types.ID
+  field :coordinates, Types::PairType do
+    description "Coordinates of an author"
+  end
+
+  field :pubblication_years, types[types.Int] do
+    description "Years that an author published some books"
+  end
+
+
 end

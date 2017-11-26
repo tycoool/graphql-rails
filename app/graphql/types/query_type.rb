@@ -24,4 +24,10 @@ Types::QueryType = GraphQL::ObjectType.define do
       Author.where(id: args[:id]).first
     }
   end
+
+  field :authors, types[Types::AuthorType] do
+    resolve ->(_, _, _){
+      Author.all
+    }
+  end
 end
